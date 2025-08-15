@@ -5,7 +5,7 @@ import party2 from "./assets/gallery/party2.jpg";
 // add other imports...
 
 export default function Gallery() {
-  const images = [party1, party2 /* ... add the rest */];
+  const images = [party1, party2, party3, party5, party6];
   const [i, setI] = useState(0);
 
   const prev = () => setI((i - 1 + images.length) % images.length);
