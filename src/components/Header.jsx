@@ -51,7 +51,7 @@ export default function Header({ mode = "home" }) {
         {/* Book button & Hamburger */}
         <div className="flex items-center gap-2">
           <button
-            onClick={() => goSection("#contact-form")}
+            onClick={() => goSection("#contact")}
             className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-bold text-pink-600 shadow-lg hover:bg-white"
           >
             Book Now
