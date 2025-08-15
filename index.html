@@ -2,42 +2,88 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Basic SEO -->
-    <title>Chuck’n Suds Foam Parties | Delaware & Eastern Shore Fun</title>
-    <meta
-      name="description"
-      content="Chuck’n Suds brings unforgettable foam parties to Delaware, Eastern Shore MD, Southern PA, and Southern NJ. Perfect for birthdays, schools, and community events."
-    />
+    <!-- Title + SEO -->
+    <title>Chuck’n Suds Foam Parties | Delaware, Eastern Shore MD, Southern PA & NJ</title>
+    <meta name="description" content="Unforgettable foam parties for birthdays, schools, and community events. Safe, clean, and wildly fun. Serving Delaware, Eastern Shore MD, Southern PA & Southern NJ." />
+    <meta name="keywords" content="foam party, foam parties, kids parties, birthday party entertainment, Delaware foam party, Maryland foam party, Pennsylvania foam party, New Jersey foam party, Chuck'n Suds" />
+    <link rel="canonical" href="https://shevchuck.github.io/chuckn-suds/" />
+    <meta name="theme-color" content="#ec4899" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/chuckn-suds/favicon.png" />
+    <!-- Favicons & PWA (all files should be in /public) -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/chuckn-suds/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/chuckn-suds/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/chuckn-suds/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/chuckn-suds/android-chrome-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/chuckn-suds/android-chrome-512x512.png" />
+    <link rel="manifest" href="/chuckn-suds/site.webmanifest" />
+    <!-- Optional legacy .ico -->
+    <link rel="shortcut icon" href="/chuckn-suds/favicon.ico" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Social preview images -->
+    <meta property="og:image" content="https://shevchuck.github.io/chuckn-suds/og-image.png" />
+    <meta name="twitter:image" content="https://shevchuck.github.io/chuckn-suds/og-image.png" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Chuck’n Suds Foam Parties" />
     <meta property="og:url" content="https://shevchuck.github.io/chuckn-suds/" />
     <meta property="og:title" content="Chuck’n Suds Foam Parties" />
-    <meta
-      property="og:description"
-      content="Epic foam parties for all ages! We bring the foam, music, and fun to your event."
-    />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:description" content="Bubbly, unforgettable foam parties. We bring the foam, music, and fun to you!" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://shevchuck.github.io/chuckn-suds/" />
     <meta name="twitter:title" content="Chuck’n Suds Foam Parties" />
-    <meta
-      name="twitter:description"
-      content="Epic foam parties for all ages! We bring the foam, music, and fun to your event."
-    />
-    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:description" content="Bubbly, unforgettable foam parties. We bring the foam, music, and fun to you!" />
 
-    <!-- Theme color for mobile browsers -->
-    <meta name="theme-color" content="#f472b6" />
+    <!-- Optional: robots + sitemap
+    <meta name="robots" content="index,follow" />
+    -->
 
-    <!-- Vite injects CSS & JS -->
+    <!-- Structured Data: LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Chuck’n Suds Foam Parties",
+      "url": "https://shevchuck.github.io/chuckn-suds/",
+      "image": "https://shevchuck.github.io/chuckn-suds/og-image.png",
+      "description": "Unforgettable foam parties for birthdays, schools, and community events. Safe, clean, and wildly fun.",
+      "areaServed": [
+        "Delaware",
+        "Eastern Shore of Maryland",
+        "Southern Pennsylvania",
+        "Southern New Jersey"
+      ],
+      "sameAs": [
+        "https://facebook.com/ChucknSuds",
+        "https://instagram.com/ChucknSuds"
+      ],
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": "hello@chucknsuds.com"
+      }]
+    }
+    </script>
+
+    <!-- Structured Data: WebSite + SearchAction -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Chuck’n Suds Foam Parties",
+      "url": "https://shevchuck.github.io/chuckn-suds/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://shevchuck.github.io/chuckn-suds/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- Vite entry (rewritten on build) -->
     <script type="module" crossorigin src="/chuckn-suds/assets/index-gCvaQ1uc.js"></script>
     <link rel="stylesheet" crossorigin href="/chuckn-suds/assets/index-D5Dfv1sh.css">
   </head>
