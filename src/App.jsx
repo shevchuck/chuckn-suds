@@ -32,7 +32,7 @@ export default function App() {
   const packages = [
     {
       name: "DAY BUBBLE BLAST (60 min)",
-      price: "$249",
+      price: "$299 / Hour",
       features: [
         "1 hour foam party",
         "Pro foam cannon + attendant",
@@ -43,7 +43,7 @@ export default function App() {
     },
     {
       name: "NIGHT TIME FRENZY (60 min)",
-      price: "$349",
+      price: "$349 / Hour",
       features: [
         "1 hour foam party",
         "Pro foam cannon + attendant",
@@ -64,7 +64,7 @@ export default function App() {
     { q: "Is the foam safe?", a: "Yes! Our foam solution is hypoallergenic, non-staining, and biodegradable. It’s safe for skin, grass, and pets when used as directed." },
     { q: "What space and power do I need?", a: "A 15×15 ft (or larger) open area is perfect. We’ll need access to a standard outdoor outlet (110V) and a water hose spigot." },
     { q: "Do you travel?", a: "From beaches to backyards, we cover Delaware, the Eastern Shore of Maryland, Southern Pennsylvania, and Southern New Jersey. Travel further for an additional mileage fee." },
-    { q: "What should guests wear?", a: "Swimwear or play clothes you don’t mind getting wet. Water shoes are recommended." },
+    { q: "What should guests wear?", a: "Swimwear or play clothes you don’t mind getting wet. Water shoes or bare feet are recommended." },
     { q: "What’s cleanup like?", a: "Foam breaks down quickly on its own after the party. Many hosts give the area a quick rinse later." },
     { q: "What type of surface is needed?", a: "Any medium-to-large, flat space free of obstacles works great—yards, driveways, or courts." },
   ];
@@ -215,10 +215,10 @@ export default function App() {
             <p className="mt-2 text-white/90">Call or message us!</p>
             <div className="mt-4 flex flex-wrap gap-3">
               <a
-                href="tel:+1-302-396-6166"
+                href="tel:+1-555-555-5555"
                 className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2 text-pink-600 shadow hover:bg-white"
               >
-                <PhoneCall className="h-4 w-4" /> (302) 396-6166
+                <PhoneCall className="h-4 w-4" /> (555) 555-5555
               </a>
               <a
                 href="https://m.me/ChucknSuds"

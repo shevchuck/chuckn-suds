@@ -64,6 +64,7 @@ export default function ContactForm({ onSubmitSuccess }) {
         </div>
       </div>
 
+      <div lassName="grid gap-4 md:grid-cols-2">
       <div>
         <label className="mb-1 block text-sm font-semibold">Phone (optional)</label>
         <input
@@ -72,6 +73,15 @@ export default function ContactForm({ onSubmitSuccess }) {
           className="w-full rounded-lg p-3 bg-white/90 text-black placeholder-gray-500"
           placeholder="(555) 555-5555"
         />
+      </div>
+      <div>
+        <label className="mb-1 block text-sm font-semibold">Requested Date (optional)</label>
+        <input
+          type="date"
+          name="requested_date"
+          className="w-full rounded-lg p-3 bg-white/90 text-black placeholder-gray-500"
+        />
+      </div>
       </div>
 
       <div>

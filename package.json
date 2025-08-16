@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "homepage": "https://shevchuck.github.io/chuckn-suds",
+  "deploy": "gh-pages -d dist -c chucknsuds.com",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
