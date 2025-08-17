@@ -32,23 +32,26 @@ export default function App() {
   const packages = [
     {
       name: "DAY BUBBLE BLAST (60 min)",
-      price: "$299 / Hour",
+      price: "$320",
       features: [
         "1 hour foam party",
         "Pro foam cannon + attendant",
         "Kid-safe foam concentrate",
-        "Custom party playlist",
+        "Sounds system & music",
+        "We travel and take care of everything!"
       ],
       cta: "Book Day Bubble Blast",
     },
     {
       name: "NIGHT TIME FRENZY (60 min)",
-      price: "$349 / Hour",
+      price: "$380 ",
       features: [
         "1 hour foam party",
         "Pro foam cannon + attendant",
         "DJ Party Lights",
+        "Sounds system & music",
         "Glow/UV lighting upgrades available",
+        "We travel and take care of everything"
       ],
       cta: "Book Night Time Frenzy",
       highlight: true,
