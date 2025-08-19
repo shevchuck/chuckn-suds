@@ -1,8 +1,13 @@
+// src/App.jsx
 import React, { useState, useEffect } from "react";
 import { Facebook, Instagram, PhoneCall, MessageSquare } from "lucide-react";
 import Header from "./components/Header.jsx";
 import logo from "./assets/c.png";
 import ContactForm from "./components/ContactForm.jsx";
+
+// 👉 Add your package images to src/assets and import them here:
+import dayImg from "./assets/day.jpg";
+import nightImg from "./assets/night.jpg";
 
 export default function App() {
   // Toggle / feedback for contact form
@@ -15,7 +20,7 @@ export default function App() {
     setTimeout(() => setSubmitted(false), 5000);
   };
 
-  // Open the form whenever the URL hash is #contact-form (works from header/nav too)
+  // Open the form whenever the URL hash is #contact-form
   useEffect(() => {
     const openIfHash = () => {
       if (window.location.hash === "#contact-form") {
@@ -33,25 +38,29 @@ export default function App() {
     {
       name: "DAY BUBBLE BLAST (60 min)",
       price: "$320",
+      image: dayImg, // 👈 daytime image
       features: [
         "1 hour foam party",
         "Pro foam cannon + attendant",
         "Kid-safe foam concentrate",
         "Sounds system & music",
-        "We travel and take care of everything!"
+        "We travel and take care of everything!",
+        "Color upgrades availble for gender reveal parties"
       ],
       cta: "Book Day Bubble Blast",
     },
     {
       name: "NIGHT TIME FRENZY (60 min)",
       price: "$380 ",
+      image: nightImg, // 👈 nighttime image
       features: [
         "1 hour foam party",
         "Pro foam cannon + attendant",
-        "DJ Party Lights",
+        "Kid-safe foam concentrate",
         "Sounds system & music",
-        "Glow/UV lighting upgrades available",
-        "We travel and take care of everything"
+        "Colorful DJ Party Lights that bring your night to life",
+        "We travel and take care of everything",
+        "Glow foam & UV lighting upgrades available",
       ],
       cta: "Book Night Time Frenzy",
       highlight: true,
@@ -121,33 +130,55 @@ export default function App() {
       <section id="packages" className="mx-auto max-w-6xl px-4 py-16">
         <h2 className="text-center text-3xl font-extrabold md:text-4xl">Packages</h2>
         <p className="mt-2 text-center text-white/90">Transparent pricing. All the foam you need.</p>
+
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           {packages.map((pkg) => (
             <div
               key={pkg.name}
-              className={`relative rounded-3xl p-6 ring-1 ring-white/25 backdrop-blur shadow-xl bg-white/10 ${pkg.highlight ? "scale-[1.02] bg-white/15" : ""}`}
+              className={`relative rounded-3xl overflow-hidden ring-1 ring-white/25 backdrop-blur shadow-xl bg-white/10 ${
+                pkg.highlight ? "scale-[1.02] bg-white/15" : ""
+              }`}
             >
-              {pkg.badge && <span className={pkg.badge.className}>{pkg.badge.text}</span>}
-              <h3 className="mt-2 text-xl font-extrabold tracking-wide">{pkg.name}</h3>
-              <div className="mt-1 text-3xl font-black">{pkg.price}</div>
-              <ul className="mt-4 space-y-2 text-sm/6">
-                {pkg.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2">
-                    <span className="mt-1 inline-block h-2 w-2 rounded-full bg-teal-300" />
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-              <a
-                href="#contact"
-                onClick={() => setShowForm(true)}
-                className="mt-6 inline-block w-full rounded-2xl bg-white/90 px-4 py-3 text-center text-sm font-bold text-pink-600 shadow hover:bg-white"
-              >
-                {pkg.cta}
-              </a>
+              {/* Image + badge overlay */}
+              <div className="relative">
+                {pkg.image && (
+                  <img
+                    src={pkg.image}
+                    alt={pkg.name}
+                    className="h-48 w-full object-cover object-center"
+                  />
+                )}
+                {pkg.badge && (
+                  <span className="absolute top-3 right-3 rounded-full bg-pink-500 px-3 py-1 text-xs font-extrabold tracking-wide text-white shadow-lg ring-1 ring-white/30">
+                    {pkg.badge.text}
+                  </span>
+                )}
+              </div>
+
+              {/* Card content */}
+              <div className="p-6">
+                <h3 className="text-xl font-extrabold tracking-wide">{pkg.name}</h3>
+                <div className="mt-1 text-3xl font-black">{pkg.price}</div>
+                <ul className="mt-4 space-y-2 text-sm/6">
+                  {pkg.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2">
+                      <span className="mt-1 inline-block h-2 w-2 rounded-full bg-teal-300" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#contact"
+                  onClick={() => setShowForm(true)}
+                  className="mt-6 inline-block w-full rounded-2xl bg-white/90 px-4 py-3 text-center text-sm font-bold text-pink-600 shadow hover:bg-white"
+                >
+                  {pkg.cta}
+                </a>
+              </div>
             </div>
           ))}
         </div>
+
       </section>
 
       {/* FAQ */}
@@ -171,7 +202,6 @@ export default function App() {
         <h2 className="text-3xl font-extrabold md:text-4xl">Get a Quote</h2>
         <p className="mt-2 text-white/90">Tell us about your event — we’ll reply ASAP.</p>
 
-        {/* Toggle button when hidden and no recent submit */}
         {!showForm && !submitted && (
           <button
             onClick={() => setShowForm(true)}
@@ -181,7 +211,6 @@ export default function App() {
           </button>
         )}
 
-        {/* Simple smooth reveal using max-height + opacity */}
         <div
           className={`mt-8 overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out ${
             showForm ? "max-h-[1200px] opacity-100" : "max-h-0 opacity-0"
@@ -202,7 +231,6 @@ export default function App() {
           )}
         </div>
 
-        {/* Success toast */}
         {submitted && (
           <div className="mt-6 inline-block rounded-xl bg-green-600 px-4 py-3 text-sm font-bold text-white shadow">
             ✅ Thanks! We’ll be in touch soon.
@@ -210,7 +238,7 @@ export default function App() {
         )}
       </section>
 
-      {/* FOOTER (unchanged) */}
+      {/* FOOTER */}
       <footer id="contact" className="border-t border-white/20 bg-black/10">
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-12 md:grid-cols-3">
           <div>
