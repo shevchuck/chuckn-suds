@@ -200,6 +200,7 @@ export default function App() {
       {/* CONTACT FORM (toggle) */}
       <section id="contact-form" className="mx-auto max-w-4xl px-4 py-16 text-center">
         <h2 className="text-3xl font-extrabold md:text-4xl">Get a Quote</h2>
+        <p className="mt-2 text-white/90">Currently booking for 2026 Spring Season.</p>
         <p className="mt-2 text-white/90">Tell us about your event — we’ll reply ASAP.</p>
 
         {!showForm && !submitted && (
@@ -246,10 +247,10 @@ export default function App() {
             <p className="mt-2 text-white/90">Call or message us!</p>
             <div className="mt-4 flex flex-wrap gap-3">
               <a
-                href="tel:+1-555-555-5555"
+                href="tel:+1-302-729-2002"
                 className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2 text-pink-600 shadow hover:bg-white"
               >
-                <PhoneCall className="h-4 w-4" /> (555) 555-5555
+                <PhoneCall className="h-4 w-4" /> (302) 729-2002
               </a>
               <a
                 href="https://m.me/ChucknSuds"
