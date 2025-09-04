@@ -14,6 +14,12 @@ export default function Header({ mode = "home" }) {
     setOpen(false);
   };
 
+  // NEW: Flyer page nav helper
+  const goFlyer = () => {
+    window.location.hash = "#/flyer";
+    setOpen(false);
+  };
+
   const goSection = (selector) => {
     if (mode === "home") {
       setOpen(false);
@@ -46,6 +52,8 @@ export default function Header({ mode = "home" }) {
           <button onClick={() => goSection("#faq")} className="hover:opacity-90">FAQ</button>
           <button onClick={() => goSection("#contact-form")} className="hover:opacity-90">Contact</button>
           <button onClick={goGallery} className="hover:opacity-90">Gallery</button>
+          {/* NEW: Flyer link */}
+          <button onClick={goFlyer} className="hover:opacity-90">Flyer</button>
         </nav>
 
         {/* Book button & Hamburger */}
@@ -77,6 +85,8 @@ export default function Header({ mode = "home" }) {
             <button onClick={() => goSection("#faq")} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">FAQ</button>
             <button onClick={() => goSection("#contact-form")} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Contact</button>
             <button onClick={goGallery} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Gallery</button>
+            {/* NEW: Flyer link */}
+            <button onClick={goFlyer} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Flyer</button>
           </div>
         </div>
       )}
