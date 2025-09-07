@@ -43,7 +43,7 @@ export default function App() {
         "1 hour foam party",
         "Pro foam cannon + attendant",
         "Kid-safe foam concentrate",
-        "Sounds system & music",
+        "Sound system & music",
         "We travel and take care of everything!",
         "Color upgrades availble for gender reveal parties"
       ],
@@ -57,7 +57,7 @@ export default function App() {
         "1 hour foam party",
         "Pro foam cannon + attendant",
         "Kid-safe foam concentrate",
-        "Sounds system & music",
+        "Sound system & music",
         "Colorful DJ Party Lights that bring your night to life",
         "We travel and take care of everything",
         "Glow foam & UV lighting upgrades available",
@@ -259,6 +259,7 @@ export default function App() {
               >
                 <MessageSquare className="h-4 w-4" /> Message Us
               </a>
+              
             </div>
           </div>
 
