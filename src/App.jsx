@@ -85,10 +85,10 @@ export default function App() {
       <Header mode="home" />
 
       {/* HERO with video background */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden h-[80vh] min-h-[500px]">
         {/* Video */}
         <video
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-center"
           autoPlay
           muted
           loop
@@ -98,7 +98,7 @@ export default function App() {
           <source src={webVid} type="video/mp4" />
         </video>
 
-        {/* Slightly stronger overlay for readability */}
+        {/* Overlay for readability */}
         <div className="pointer-events-none absolute inset-0 bg-black/25" />
 
         {/* Bubble overlay */}
