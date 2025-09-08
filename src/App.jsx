@@ -4,13 +4,13 @@ import { Facebook, Instagram, PhoneCall, MessageSquare } from "lucide-react";
 import Header from "./components/Header.jsx";
 import logo from "./assets/c.png";
 import ContactForm from "./components/ContactForm.jsx";
+import webVid from "./assets/webVid.mp4"; // ✅ video import
 
 // 👉 Add your package images to src/assets and import them here:
 import dayImg from "./assets/day.jpg";
 import nightImg from "./assets/night.jpg";
 
 export default function App() {
-  // Toggle / feedback for contact form
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -20,7 +20,6 @@ export default function App() {
     setTimeout(() => setSubmitted(false), 5000);
   };
 
-  // Open the form whenever the URL hash is #contact-form
   useEffect(() => {
     const openIfHash = () => {
       if (window.location.hash === "#contact-form") {
@@ -38,31 +37,29 @@ export default function App() {
     {
       name: "DAY BUBBLE BLAST (60 min)",
       price: "$320",
-      image: dayImg, // 👈 daytime image
+      image: dayImg,
       features: [
-        "1 hour foam party",
+        "1 hour foam party - Additional time add-on available",
         "Pro foam cannon + attendant",
         "Kid-safe foam concentrate",
         "Sound system & music",
         "We travel and take care of everything!",
-        "Color upgrades availble for gender reveal parties",
-        "Additional time add-on available"
+        "Color upgrades availble for gender reveal & themed parties",
       ],
       cta: "Book Day Bubble Blast",
     },
     {
       name: "NIGHT TIME FRENZY (60 min)",
       price: "$380 ",
-      image: nightImg, // 👈 nighttime image
+      image: nightImg,
       features: [
-        "1 hour foam party",
+        "1 hour foam party - Additional time add-on available",
         "Pro foam cannon + attendant",
         "Kid-safe foam concentrate",
         "Sound system & music",
         "Colorful DJ Party Lights that bring your night to life",
         "We travel and take care of everything",
         "Glow foam & UV lighting upgrades available",
-        "Additional time add-on available"
       ],
       cta: "Book Night Time Frenzy",
       highlight: true,
@@ -87,12 +84,31 @@ export default function App() {
     <div className="min-h-screen w-full bg-gradient-to-br from-teal-500 via-pink-500 to-orange-400 text-white">
       <Header mode="home" />
 
-      {/* HERO */}
+      {/* HERO with video background */}
       <section className="relative overflow-hidden">
+        {/* Video */}
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        >
+          <source src={webVid} type="video/mp4" />
+        </video>
+
+        {/* Slightly stronger overlay for readability */}
+        <div className="pointer-events-none absolute inset-0 bg-black/25" />
+
+        {/* Bubble overlay */}
         <div className="pointer-events-none absolute inset-0 opacity-30">
           <Bubbles />
         </div>
-        <div className="mx-auto grid max-w-6xl grid-cols-1 place-items-center gap-6 px-4 py-16 md:grid-cols-2 md:py-24">
+
+        {/* Content */}
+        <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 place-items-center gap-6 px-4 py-16 md:grid-cols-2 md:py-24">
+          {/* Left: text */}
           <div className="text-center md:text-left">
             <div className="inline-block rounded-full bg-white/15 px-4 py-1 text-xs font-semibold uppercase tracking-wider ring-1 ring-white/30">
               Epic Foam Parties for All Ages!
@@ -106,26 +122,36 @@ export default function App() {
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3 md:justify-start">
               <a
                 href="#packages"
-                className="rounded-xl bg-white/90 px-5 py-3 text-sm font-bold text-pink-600 shadow-lg hover:bg-white"
+                className="rounded-xl bg-white/90 px-5 py-3 text-sm font-bold text-pink-600 shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-white"
               >
                 View Packages
               </a>
               <a
                 href="#contact-form"
-                className="rounded-xl border border-white/60 bg-white/10 px-5 py-3 text-sm font-bold backdrop-blur hover:bg-white/20"
                 onClick={() => setShowForm(true)}
+                className="rounded-xl border border-white/60 bg-white/10 px-5 py-3 text-sm font-bold backdrop-blur transition-transform duration-200 hover:scale-105 hover:bg-white/20"
               >
                 Get a Quote
               </a>
             </div>
           </div>
-          <div className="relative mt-6 aspect-square w-72 md:w-96">
-            <div className="absolute inset-0 animate-pulse-slow rounded-[2rem] bg-white/20 blur-xl"></div>
-            <div className="relative flex h-full w-full items-center justify-center rounded-[2rem] bg-white/10 p-6 ring-1 ring-white/30 shadow-2xl">
-              <img src={logo} alt="Chuck’n Suds logo" className="h-full w-auto animate-bob" />
-            </div>
+
+          {/* Right: responsive bouncing logo */}
+          <div className="relative mt-6 flex items-center justify-center">
+            <img
+              src={logo}
+              alt="Chuck’n Suds logo"
+              className="h-32 md:h-48 lg:h-64 w-auto animate-bob select-none pointer-events-none drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
+            />
           </div>
         </div>
+
+        {/* Respect reduced motion */}
+        <style>{`
+          @media (prefers-reduced-motion: reduce) {
+            video { display: none; }
+          }
+        `}</style>
       </section>
 
       {/* PACKAGES */}
@@ -172,7 +198,7 @@ export default function App() {
                 <a
                   href="#contact"
                   onClick={() => setShowForm(true)}
-                  className="mt-6 inline-block w-full rounded-2xl bg-white/90 px-4 py-3 text-center text-sm font-bold text-pink-600 shadow hover:bg-white"
+                  className="mt-6 inline-block w-full rounded-2xl bg-white/90 px-4 py-3 text-center text-sm font-bold text-pink-600 shadow transition-transform duration-200 hover:scale-105 hover:bg-white"
                 >
                   {pkg.cta}
                 </a>
@@ -180,7 +206,6 @@ export default function App() {
             </div>
           ))}
         </div>
-
       </section>
 
       {/* FAQ */}
@@ -208,7 +233,7 @@ export default function App() {
         {!showForm && !submitted && (
           <button
             onClick={() => setShowForm(true)}
-            className="mt-6 rounded-xl bg-white/90 px-6 py-3 text-sm font-bold text-pink-600 shadow-lg hover:bg-white"
+            className="mt-6 rounded-xl bg-white/90 px-6 py-3 text-sm font-bold text-pink-600 shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-white"
           >
             Contact Us
           </button>
@@ -250,18 +275,17 @@ export default function App() {
             <div className="mt-4 flex flex-wrap gap-3">
               <a
                 href="tel:+1-302-729-2002"
-                className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2 text-pink-600 shadow hover:bg-white"
+                className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2 text-pink-600 shadow hover:bg-white transition-transform duration-200 hover:scale-105"
               >
                 <PhoneCall className="h-4 w-4" /> (302) 729-2002
               </a>
               <a
                 href="https://m.me/ChucknSuds"
                 target="_blank"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/60 bg-white/10 px-4 py-2 backdrop-blur hover:bg-white/20"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/60 bg-white/10 px-4 py-2 backdrop-blur hover:bg-white/20 transition-transform duration-200 hover:scale-105"
               >
                 <MessageSquare className="h-4 w-4" /> Message Us
               </a>
-              
             </div>
           </div>
 
@@ -280,7 +304,7 @@ export default function App() {
                 href="https://facebook.com/ChucknSuds"
                 target="_blank"
                 aria-label="Facebook"
-                className="inline-flex items-center gap-2 rounded-full bg-white/90 p-3 text-pink-600 shadow hover:bg-white"
+                className="inline-flex items-center gap-2 rounded-full bg-white/90 p-3 text-pink-600 shadow hover:bg-white transition-transform duration-200 hover:scale-105"
               >
                 <Facebook className="h-5 w-5" />
               </a>
@@ -288,7 +312,7 @@ export default function App() {
                 href="https://instagram.com/ChucknSuds"
                 target="_blank"
                 aria-label="Instagram"
-                className="inline-flex items-center gap-2 rounded-full bg-white/90 p-3 text-pink-600 shadow hover:bg-white"
+                className="inline-flex items-center gap-2 rounded-full bg-white/90 p-3 text-pink-600 shadow hover:bg-white transition-transform duration-200 hover:scale-105"
               >
                 <Instagram className="h-5 w-5" />
               </a>
