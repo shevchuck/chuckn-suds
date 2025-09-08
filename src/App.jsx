@@ -45,7 +45,8 @@ export default function App() {
         "Kid-safe foam concentrate",
         "Sound system & music",
         "We travel and take care of everything!",
-        "Color upgrades availble for gender reveal parties"
+        "Color upgrades availble for gender reveal parties",
+        "Additional time add-on available"
       ],
       cta: "Book Day Bubble Blast",
     },
@@ -61,6 +62,7 @@ export default function App() {
         "Colorful DJ Party Lights that bring your night to life",
         "We travel and take care of everything",
         "Glow foam & UV lighting upgrades available",
+        "Additional time add-on available"
       ],
       cta: "Book Night Time Frenzy",
       highlight: true,
