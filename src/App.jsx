@@ -5,6 +5,7 @@ import Header from "./components/Header.jsx";
 import logo from "./assets/c.png";
 import ContactForm from "./components/ContactForm.jsx";
 import webVid from "./assets/webVid.mp4"; // ✅ video import
+import poster from "./assets/poster.png"; // ✅ poster import
 
 // 👉 Add your package images to src/assets and import them here:
 import dayImg from "./assets/day.jpg";
@@ -84,7 +85,7 @@ export default function App() {
     <div className="min-h-screen w-full bg-gradient-to-br from-teal-500 via-pink-500 to-orange-400 text-white">
       <Header mode="home" />
 
-      {/* HERO with video background */}
+      {/* HERO with video background + poster */}
       <section className="relative overflow-hidden h-[80vh] min-h-[500px]">
         {/* Video */}
         <video
@@ -94,12 +95,16 @@ export default function App() {
           loop
           playsInline
           preload="auto"
+          poster={poster} // ✅ fallback image while loading
         >
           <source src={webVid} type="video/mp4" />
         </video>
 
         {/* Overlay for readability */}
         <div className="pointer-events-none absolute inset-0 bg-black/25" />
+
+        {/* Brand gradient overlay for consistency */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-pink-500/20 to-teal-500/20" />
 
         {/* Bubble overlay */}
         <div className="pointer-events-none absolute inset-0 opacity-30">
