@@ -14,6 +14,7 @@ import nightImg from "./assets/night.jpg";
 export default function App() {
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false); // ✅ track when video is ready
 
   const handleFormSuccess = () => {
     setShowForm(false);
@@ -85,17 +86,20 @@ export default function App() {
     <div className="min-h-screen w-full bg-gradient-to-br from-teal-500 via-pink-500 to-orange-400 text-white">
       <Header mode="home" />
 
-      {/* HERO with video background + poster */}
+      {/* HERO with video background + poster + fade-in */}
       <section className="relative overflow-hidden h-[80vh] min-h-[500px]">
         {/* Video */}
         <video
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${
+            videoLoaded ? "opacity-100" : "opacity-0"
+          }`}
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
-          poster={poster} // ✅ fallback image while loading
+          poster={poster}
+          onCanPlayThrough={() => setVideoLoaded(true)} // ✅ fade-in trigger
         >
           <source src={webVid} type="video/mp4" />
         </video>
