@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Robots -->
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="googlebot" content="index,follow" />
+
     <!-- Title + SEO -->
     <title>Chuck’n Suds Foam Parties | Delaware, Eastern Shore MD, Southern PA & NJ</title>
     <meta name="description" content="Unforgettable foam parties for birthdays, schools, and community events. Safe, clean, and wildly fun. Serving Delaware, Eastern Shore MD, Southern PA & Southern NJ." />
@@ -12,7 +16,10 @@
     <meta name="theme-color" content="#ec4899" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-    <!-- Favicons & PWA (files in /public). / becomes "/" with base:'/' -->
+    <!-- Performance: preload poster for hero video -->
+    <link rel="preload" as="image" href="/poster.png" imagesrcset="/poster.png" />
+
+    <!-- Favicons & PWA -->
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -23,6 +30,9 @@
 
     <!-- Social preview images -->
     <meta property="og:image" content="https://chucknsuds.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Chuck’n Suds Foam Parties — giant bubbles and smiling kids in pink/teal gradient" />
     <meta name="twitter:image" content="https://chucknsuds.com/og-image.png" />
 
     <!-- Open Graph -->
@@ -31,17 +41,20 @@
     <meta property="og:url" content="https://chucknsuds.com/" />
     <meta property="og:title" content="Chuck’n Suds Foam Parties" />
     <meta property="og:description" content="Bubbly, unforgettable foam parties. We bring the foam, music, and fun to you!" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Chuck’n Suds Foam Parties" />
     <meta name="twitter:description" content="Bubbly, unforgettable foam parties. We bring the foam, music, and fun to you!" />
+    <!-- Optional: set your @handle if/when you make one -->
+    <!-- <meta name="twitter:site" content="@ChucknSuds" /> -->
 
-    <!-- Structured Data: LocalBusiness -->
+    <!-- Structured Data: LocalBusiness (EntertainmentBusiness) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": "EntertainmentBusiness",
       "name": "Chuck’n Suds Foam Parties",
       "url": "https://chucknsuds.com/",
       "image": "https://chucknsuds.com/og-image.png",
@@ -52,6 +65,8 @@
         "Southern Pennsylvania",
         "Southern New Jersey"
       ],
+      "telephone": "+1-302-729-2002",
+      "priceRange": "$$",
       "sameAs": [
         "https://facebook.com/ChucknSuds",
         "https://instagram.com/ChucknSuds"
@@ -59,7 +74,9 @@
       "contactPoint": [{
         "@type": "ContactPoint",
         "contactType": "customer service",
-        "email": "hello@chucknsuds.com"
+        "telephone": "+1-302-729-2002",
+        "email": "hello@chucknsuds.com",
+        "areaServed": "US"
       }]
     }
     </script>
@@ -79,8 +96,58 @@
     }
     </script>
 
+    <!-- Structured Data: FAQPage (matches your on-page FAQs) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is the foam safe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Our foam solution is hypoallergenic, non-staining, and biodegradable. It’s safe for skin, grass, and pets when used as directed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What space and power do I need?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A 15×15 ft (or larger) open area is perfect. We’ll need access to a standard outdoor outlet (110V) and a water hose spigot."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you travel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "From beaches to backyards, we cover Delaware, the Eastern Shore of Maryland, Southern Pennsylvania, and Southern New Jersey. Travel further for an additional mileage fee."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should guests wear?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Swimwear or play clothes you don’t mind getting wet. Water shoes or bare feet are recommended."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What’s cleanup like?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Foam breaks down quickly on its own after the party. Many hosts give the area a quick rinse later."
+          }
+        }
+      ]
+    }
+    </script>
+
     <!-- Vite entry (rewritten on build) -->
-    <script type="module" crossorigin src="/assets/index-CS4Zn4wJ.js"></script>
+    <script type="module" crossorigin src="/assets/index-BDIoWUyr.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-BMZxYRTV.css">
   </head>
   <body>
