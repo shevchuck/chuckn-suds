@@ -4,8 +4,7 @@ import { Facebook, Instagram, PhoneCall, MessageSquare } from "lucide-react";
 import Header from "./components/Header.jsx";
 import logo from "./assets/c.png";
 import ContactForm from "./components/ContactForm.jsx";
-import webVid from "./assets/webVid.mp4"; // ✅ video import
-import poster from "./assets/poster.png"; // ✅ poster import
+import webVid from "./assets/webVid.mp4";
 
 // 👉 Add your package images to src/assets and import them here:
 import dayImg from "./assets/day.jpg";
@@ -14,7 +13,7 @@ import nightImg from "./assets/night.jpg";
 export default function App() {
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false); // ✅ track when video is ready
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   const handleFormSuccess = () => {
     setShowForm(false);
@@ -22,6 +21,7 @@ export default function App() {
     setTimeout(() => setSubmitted(false), 5000);
   };
 
+  // Open the form whenever the URL hash is #contact-form
   useEffect(() => {
     const openIfHash = () => {
       if (window.location.hash === "#contact-form") {
@@ -86,11 +86,17 @@ export default function App() {
     <div className="min-h-screen w-full bg-gradient-to-br from-teal-500 via-pink-500 to-orange-400 text-white">
       <Header mode="home" />
 
-      {/* HERO with video background + poster + fade-in */}
-      <section className="relative overflow-hidden h-[80vh] min-h-[500px]">
-        {/* Video */}
+      {/* HERO with video background (responsive height) */}
+      <section className="relative overflow-hidden h-[70vh] min-h-[480px] md:h-[80vh] md:min-h-[500px]">
+        {/* Brand gradient + bubbles act as fallback while video loads */}
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-500 via-pink-500 to-orange-400" />
+        <div className="pointer-events-none absolute inset-0 opacity-30">
+          <Bubbles />
+        </div>
+
+        {/* Video (fades in when ready) */}
         <video
-          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${
+          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ${
             videoLoaded ? "opacity-100" : "opacity-0"
           }`}
           autoPlay
@@ -98,47 +104,39 @@ export default function App() {
           loop
           playsInline
           preload="auto"
-          poster={poster}
-          onCanPlayThrough={() => setVideoLoaded(true)} // ✅ fade-in trigger
+          onCanPlayThrough={() => setVideoLoaded(true)}
         >
           <source src={webVid} type="video/mp4" />
         </video>
 
-        {/* Overlay for readability */}
+        {/* Readability overlays */}
         <div className="pointer-events-none absolute inset-0 bg-black/25" />
-
-        {/* Brand gradient overlay for consistency */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-pink-500/20 to-teal-500/20" />
 
-        {/* Bubble overlay */}
-        <div className="pointer-events-none absolute inset-0 opacity-30">
-          <Bubbles />
-        </div>
-
         {/* Content */}
-        <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 place-items-center gap-6 px-4 py-16 md:grid-cols-2 md:py-24">
+        <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 place-items-center gap-5 px-4 py-12 md:grid-cols-2 md:py-24">
           {/* Left: text */}
           <div className="text-center md:text-left">
-            <div className="inline-block rounded-full bg-white/15 px-4 py-1 text-xs font-semibold uppercase tracking-wider ring-1 ring-white/30">
+            <div className="inline-block rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider ring-1 ring-white/30 md:text-xs">
               Epic Foam Parties for All Ages!
             </div>
-            <h1 className="mt-4 text-4xl font-extrabold leading-tight drop-shadow-lg md:text-6xl">
+            <h1 className="mt-3 text-3xl font-extrabold leading-tight drop-shadow-lg md:text-6xl">
               We Bring the <span className="whitespace-nowrap">Foam & Fun</span>
             </h1>
-            <p className="mt-3 max-w-prose text-white/90 md:text-lg">
+            <p className="mt-2 max-w-prose text-white/90 text-base md:text-lg">
               Turn birthdays, school events, and block parties into unforgettable, bubbly adventures.
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 md:justify-start">
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:justify-start">
               <a
                 href="#packages"
-                className="rounded-xl bg-white/90 px-5 py-3 text-sm font-bold text-pink-600 shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-white"
+                className="rounded-xl bg-white/90 px-4 py-2.5 text-sm font-bold text-pink-600 shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-white"
               >
                 View Packages
               </a>
               <a
                 href="#contact-form"
                 onClick={() => setShowForm(true)}
-                className="rounded-xl border border-white/60 bg-white/10 px-5 py-3 text-sm font-bold backdrop-blur transition-transform duration-200 hover:scale-105 hover:bg-white/20"
+                className="rounded-xl border border-white/60 bg-white/10 px-4 py-2.5 text-sm font-bold backdrop-blur transition-transform duration-200 hover:scale-105 hover:bg-white/20"
               >
                 Get a Quote
               </a>
@@ -146,11 +144,11 @@ export default function App() {
           </div>
 
           {/* Right: responsive bouncing logo */}
-          <div className="relative mt-6 flex items-center justify-center">
+          <div className="relative mt-4 flex items-center justify-center md:mt-6">
             <img
               src={logo}
               alt="Chuck’n Suds logo"
-              className="h-32 md:h-48 lg:h-64 w-auto animate-bob select-none pointer-events-none drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
+              className="h-24 md:h-48 lg:h-64 w-auto animate-bob select-none pointer-events-none drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
             />
           </div>
         </div>
@@ -168,28 +166,35 @@ export default function App() {
         <h2 className="text-center text-3xl font-extrabold md:text-4xl">Packages</h2>
         <p className="mt-2 text-center text-white/90">Transparent pricing. All the foam you need.</p>
 
+        {/* Enhanced cards */}
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           {packages.map((pkg) => (
             <div
               key={pkg.name}
-              className={`relative rounded-3xl overflow-hidden ring-1 ring-white/25 backdrop-blur shadow-xl bg-white/10 ${
-                pkg.highlight ? "scale-[1.02] bg-white/15" : ""
-              }`}
+              className={`group relative overflow-hidden rounded-3xl ring-1 ring-white/25 bg-white/10 backdrop-blur
+                          shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-pink-500/30
+                          ${pkg.highlight ? "bg-white/15" : ""}`}
             >
-              {/* Image + badge overlay */}
+              {/* Image + burst badge */}
               <div className="relative">
                 {pkg.image && (
                   <img
                     src={pkg.image}
                     alt={pkg.name}
-                    className="h-48 w-full object-cover object-center"
+                    className="h-48 w-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
                   />
                 )}
-                {pkg.badge && (
-                  <span className="absolute top-3 right-3 rounded-full bg-pink-500 px-3 py-1 text-xs font-extrabold tracking-wide text-white shadow-lg ring-1 ring-white/30">
-                    {pkg.badge.text}
+
+                {pkg.highlight && (
+                  <span className="absolute top-3 right-3 z-10">
+                    <span className="absolute inset-0 -z-10 blur-lg rounded-full bg-pink-500/70"></span>
+                    <span className="rounded-full bg-pink-500 px-3 py-1 text-xs font-extrabold tracking-wide text-white shadow-lg ring-1 ring-white/30">
+                      Most Popular
+                    </span>
                   </span>
                 )}
+
+                <BubbleAccent />
               </div>
 
               {/* Card content */}
@@ -207,9 +212,11 @@ export default function App() {
                 <a
                   href="#contact"
                   onClick={() => setShowForm(true)}
-                  className="mt-6 inline-block w-full rounded-2xl bg-white/90 px-4 py-3 text-center text-sm font-bold text-pink-600 shadow transition-transform duration-200 hover:scale-105 hover:bg-white"
+                  className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white/90 px-4 py-3 text-sm font-bold text-pink-600
+                             shadow transition-all duration-200 hover:scale-[1.02] hover:bg-white"
                 >
                   {pkg.cta}
+                  <span className="inline-block h-2 w-2 rounded-full bg-pink-500 animate-ping-slow"></span>
                 </a>
               </div>
             </div>
@@ -217,123 +224,103 @@ export default function App() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ (frosted glass answers) */}
       <section id="faq" className="mx-auto max-w-4xl px-4 py-16">
-        <h2 className="text-center text-3xl font-extrabold md:text-4xl">Frequently Asked Questions</h2>
-        <div className="mt-8 divide-y divide-white/20 rounded-3xl bg-white/10 ring-1 ring-white/20">
+        <h2 className="text-center text-3xl font-extrabold md:text-4xl">
+          Frequently Asked Questions
+        </h2>
+        <div className="mt-8 divide-y divide-white/15 overflow-hidden rounded-3xl ring-1 ring-white/15">
           {faqs.map((item, i) => (
-            <details key={i} className="group p-5">
-              <summary className="cursor-pointer list-none text-lg font-semibold">
-                <span className="mr-2 inline-block h-2 w-2 rounded-full bg-pink-300 align-middle" />
-                {item.q}
+            <details key={i} className="group bg-white/5 transition-colors">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-lg font-semibold">
+                <span className="flex items-center gap-2">
+                  <span className="inline-block h-2 w-2 rounded-full bg-pink-300" />
+                  {item.q}
+                </span>
+                <span className="ml-4 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/20 transition-all group-open:rotate-180">
+                  {/* plus → minus symbol via CSS */}
+                  <span className="relative block h-3 w-3">
+                    <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-0.5 bg-white"></span>
+                    <span className="absolute left-1/2 top-0 -translate-x-1/2 h-3 w-0.5 bg-white transition-opacity group-open:opacity-0"></span>
+                  </span>
+                </span>
               </summary>
-              <p className="mt-3 text-white/90">{item.a}</p>
+              <div className="px-5 pb-5">
+                <div className="rounded-2xl bg-white/10 backdrop-blur-md p-4 ring-1 ring-white/10">
+                  <p className="text-white/90">{item.a}</p>
+                </div>
+              </div>
             </details>
           ))}
         </div>
       </section>
 
-      {/* CONTACT FORM (toggle) */}
-      <section id="contact-form" className="mx-auto max-w-4xl px-4 py-16 text-center">
-        <h2 className="text-3xl font-extrabold md:text-4xl">Get a Quote</h2>
-        <p className="mt-2 text-white/90">Currently booking for 2026 Spring Season.</p>
-        <p className="mt-2 text-white/90">Tell us about your event — we’ll reply ASAP.</p>
+      {/* FOOTER with animated wave */}
+      <footer id="contact" className="relative">
+        {/* Animated wave divider */}
+        <div className="bg-black/10">
+          <WaveDividerAnimated />
+        </div>
 
-        {!showForm && !submitted && (
-          <button
-            onClick={() => setShowForm(true)}
-            className="mt-6 rounded-xl bg-white/90 px-6 py-3 text-sm font-bold text-pink-600 shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-white"
-          >
-            Contact Us
-          </button>
-        )}
-
-        <div
-          className={`mt-8 overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out ${
-            showForm ? "max-h-[1200px] opacity-100" : "max-h-0 opacity-0"
-          }`}
-        >
-          {showForm && (
-            <div className="text-left">
-              <ContactForm onSubmitSuccess={handleFormSuccess} />
-              <div className="mt-3 text-center">
-                <button
-                  onClick={() => setShowForm(false)}
-                  className="text-sm underline hover:opacity-90"
+        <div className="border-t border-white/10 bg-black/10">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-12 md:grid-cols-3">
+            <div>
+              <h3 className="text-xl font-extrabold">Book Your Party</h3>
+              <p className="mt-2 text-white/90">Call or message us!</p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <a
+                  href="tel:+1-302-729-2002"
+                  className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2 text-pink-600 shadow hover:bg-white transition-transform duration-200 hover:scale-105"
                 >
-                  Cancel
-                </button>
+                  <PhoneCall className="h-4 w-4" /> (302) 729-2002
+                </a>
+                <a
+                  href="https://m.me/ChucknSuds"
+                  target="_blank"
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/60 bg-white/10 px-4 py-2 backdrop-blur hover:bg-white/20 transition-transform duration-200 hover:scale-105"
+                >
+                  <MessageSquare className="h-4 w-4" /> Message Us
+                </a>
               </div>
             </div>
-          )}
-        </div>
 
-        {submitted && (
-          <div className="mt-6 inline-block rounded-xl bg-green-600 px-4 py-3 text-sm font-bold text-white shadow">
-            ✅ Thanks! We’ll be in touch soon.
-          </div>
-        )}
-      </section>
+            <div>
+              <h3 className="text-xl font-extrabold">Service Area</h3>
+              <p className="mt-2 text-white/90">
+                Serving Delaware, Eastern Shore MD, Southern PA, & Southern NJ.
+                Travel available for a small mileage fee.
+              </p>
+            </div>
 
-      {/* FOOTER */}
-      <footer id="contact" className="border-t border-white/20 bg-black/10">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-12 md:grid-cols-3">
-          <div>
-            <h3 className="text-xl font-extrabold">Book Your Party</h3>
-            <p className="mt-2 text-white/90">Call or message us!</p>
-            <div className="mt-4 flex flex-wrap gap-3">
-              <a
-                href="tel:+1-302-729-2002"
-                className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2 text-pink-600 shadow hover:bg-white transition-transform duration-200 hover:scale-105"
-              >
-                <PhoneCall className="h-4 w-4" /> (302) 729-2002
-              </a>
-              <a
-                href="https://m.me/ChucknSuds"
-                target="_blank"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/60 bg-white/10 px-4 py-2 backdrop-blur hover:bg-white/20 transition-transform duration-200 hover:scale-105"
-              >
-                <MessageSquare className="h-4 w-4" /> Message Us
-              </a>
+            <div>
+              <h3 className="text-xl font-extrabold">Follow Us</h3>
+              <div className="mt-4 flex items-center gap-4">
+                <a
+                  href="https://facebook.com/ChucknSuds"
+                  target="_blank"
+                  aria-label="Facebook"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/90 p-3 text-pink-600 shadow hover:bg-white transition-transform duration-200 hover:scale-105 animate-pulse-soft"
+                >
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://instagram.com/ChucknSuds"
+                  target="_blank"
+                  aria-label="Instagram"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/90 p-3 text-pink-600 shadow hover:bg-white transition-transform duration-200 hover:scale-105 animate-pulse-soft"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+              </div>
+              <p className="mt-3 text-sm text-white/80">
+                @ChucknSuds • www.chucknsuds.com
+              </p>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-xl font-extrabold">Service Area</h3>
-            <p className="mt-2 text-white/90">
-              Serving Delaware, Eastern Shore MD, Southern PA, & Southern NJ.
-              Travel available for a small mileage fee.
-            </p>
+          <div className="border-t border-white/10 py-6 text-center text-xs text-white/70">
+            © {new Date().getFullYear()} Chuck’n Suds. All rights reserved.
           </div>
-
-          <div>
-            <h3 className="text-xl font-extrabold">Follow Us</h3>
-            <div className="mt-4 flex items-center gap-4">
-              <a
-                href="https://facebook.com/ChucknSuds"
-                target="_blank"
-                aria-label="Facebook"
-                className="inline-flex items-center gap-2 rounded-full bg-white/90 p-3 text-pink-600 shadow hover:bg-white transition-transform duration-200 hover:scale-105"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href="https://instagram.com/ChucknSuds"
-                target="_blank"
-                aria-label="Instagram"
-                className="inline-flex items-center gap-2 rounded-full bg-white/90 p-3 text-pink-600 shadow hover:bg-white transition-transform duration-200 hover:scale-105"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-            </div>
-            <p className="mt-3 text-sm text-white/80">
-              @ChucknSuds • www.chucknsuds.com
-            </p>
-          </div>
-        </div>
-
-        <div className="border-t border-white/10 py-6 text-center text-xs text-white/70">
-          © {new Date().getFullYear()} Chuck’n Suds. All rights reserved.
         </div>
       </footer>
 
@@ -341,13 +328,65 @@ export default function App() {
       <style>{`
         @keyframes bob { 0%,100%{transform: translateY(0)} 50%{transform: translateY(-6px)} }
         .animate-bob { animation: bob 3s ease-in-out infinite; }
+
         @keyframes pulseSlow { 0%,100%{opacity:.6} 50%{opacity:1} }
-        .animate-pulse-slow { animation: pulseSlow 4s ease-in-out infinite; }
+        .animate-pulse-slow { animation: pulseSlow 2.5s ease-in-out infinite; }
+
+        @keyframes pulseSoft { 0%,100%{transform: scale(1)} 50%{transform: scale(1.05)} }
+        .animate-pulse-soft { animation: pulseSoft 2.8s ease-in-out infinite; }
+
+        @keyframes pingSlow { 75%, 100% { transform: scale(1.6); opacity: 0; } }
+        .animate-ping-slow { animation: pingSlow 1.8s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
+        /* Animated footer wave */
+        @keyframes waveSlide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-wave { animation: waveSlide 20s linear infinite; }
       `}</style>
     </div>
   );
 }
 
+/* ---------- Animated full-width footer wave ---------- */
+function WaveDividerAnimated() {
+  return (
+    <div className="relative w-full h-20 md:h-24 overflow-hidden text-white/25">
+      {/* Sliding strip that's 200% wide so it can loop seamlessly */}
+      <svg
+        viewBox="0 0 1440 120"
+        preserveAspectRatio="none"
+        className="absolute top-0 left-0 h-full w-[200%] animate-wave"
+      >
+        {/* First wave */}
+        <g>
+          <path
+            fill="currentColor"
+            d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,69.3C672,43,768,21,864,26.7C960,32,1056,64,1152,80C1248,96,1344,96,1392,96L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+          />
+        </g>
+        {/* Seamless duplicate shifted to the right */}
+        <g transform="translate(1440,0)">
+          <path
+            fill="currentColor"
+            d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,69.3C672,43,768,21,864,26.7C960,32,1056,64,1152,80C1248,96,1344,96,1392,96L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+          />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+/* ---------- Tiny visual helpers ---------- */
+function BubbleAccent() {
+  return (
+    <div className="pointer-events-none absolute -top-3 -right-3 flex gap-1 opacity-70">
+      <span className="h-3 w-3 rounded-full bg-white/70"></span>
+      <span className="h-2 w-2 rounded-full bg-white/50 mt-2"></span>
+      <span className="h-1.5 w-1.5 rounded-full bg-white/40 mt-3"></span>
+    </div>
+  );
+}
+
+/* ---------- Background bubbles ---------- */
 function Bubbles() {
   const dots = Array.from({ length: 40 });
   return (
