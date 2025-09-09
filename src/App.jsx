@@ -21,13 +21,19 @@ export default function App() {
     setTimeout(() => setSubmitted(false), 5000);
   };
 
-  // Open the form whenever the URL hash is #contact-form
+  // Open the form whenever the URL hash is #contact or #contact-form
   useEffect(() => {
     const openIfHash = () => {
-      if (window.location.hash === "#contact-form") {
+      const h = window.location.hash;
+      if (h === "#contact" || h === "#contact-form") {
         setShowForm(true);
-        const el = document.querySelector("#contact-form");
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        // ensure form is mounted, then smooth scroll
+        requestAnimationFrame(() => {
+          const el = document.querySelector("#contact-form");
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          // normalize URL to #contact-form for consistency
+          if (h !== "#contact-form") history.replaceState(null, "", "#contact-form");
+        });
       }
     };
     openIfHash();
@@ -84,7 +90,19 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-teal-500 via-pink-500 to-orange-400 text-white">
-      <Header mode="home" />
+              <Header
+          mode="home"
+          onBookNow={() => {
+            // open the form
+            setShowForm(true);
+            // normalize URL and smooth scroll to the form
+            history.replaceState(null, "", "#contact-form");
+            requestAnimationFrame(() => {
+              const el = document.querySelector("#contact-form");
+              if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+          }}
+        />
 
       {/* HERO with video background (responsive height) */}
       <section className="relative overflow-hidden h-[70vh] min-h-[480px] md:h-[80vh] md:min-h-[500px]">
@@ -96,18 +114,18 @@ export default function App() {
 
         {/* Video (fades in when ready) */}
         <video
-          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ${
-            videoLoaded ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ${videoLoaded ? "opacity-100" : "opacity-0"}`}
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
+          poster="/poster.png"                 // ✅ served from /public
           onCanPlayThrough={() => setVideoLoaded(true)}
         >
           <source src={webVid} type="video/mp4" />
         </video>
+
 
         {/* Readability overlays */}
         <div className="pointer-events-none absolute inset-0 bg-black/25" />
@@ -210,7 +228,7 @@ export default function App() {
                   ))}
                 </ul>
                 <a
-                  href="#contact"
+                  href="#contact-form"            // ✅ jump straight to the contact form
                   onClick={() => setShowForm(true)}
                   className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white/90 px-4 py-3 text-sm font-bold text-pink-600
                              shadow transition-all duration-200 hover:scale-[1.02] hover:bg-white"
@@ -255,8 +273,55 @@ export default function App() {
         </div>
       </section>
 
+      {/* CONTACT FORM (toggle) */}
+      {/* invisible anchor for legacy #contact links */}
+      <span id="contact" className="block -mt-4 pt-4" aria-hidden="true" />
+      <section id="contact-form" className="mx-auto max-w-4xl px-4 py-16 text-center">
+        <h2 className="text-3xl font-extrabold md:text-4xl">Get a Quote</h2>
+        <p className="mt-2 text-white/90">Currently booking for 2026 Spring Season.</p>
+        <p className="mt-2 text-white/90">Tell us about your event — we’ll reply ASAP.</p>
+
+        {!showForm && !submitted && (
+          <button
+            onClick={() => {
+              setShowForm(true);
+              history.replaceState(null, "", "#contact-form");
+            }}
+            className="mt-6 rounded-xl bg-white/90 px-6 py-3 text-sm font-bold text-pink-600 shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-white"
+          >
+            Contact Us
+          </button>
+        )}
+
+        <div
+          className={`mt-8 overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out ${
+            showForm ? "max-h-[1200px] opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          {showForm && (
+            <div className="text-left">
+              <ContactForm onSubmitSuccess={handleFormSuccess} />
+              <div className="mt-3 text-center">
+                <button
+                  onClick={() => setShowForm(false)}
+                  className="text-sm underline hover:opacity-90"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {submitted && (
+          <div className="mt-6 inline-block rounded-xl bg-green-600 px-4 py-3 text-sm font-bold text-white shadow">
+            ✅ Thanks! We’ll be in touch soon.
+          </div>
+        )}
+      </section>
+
       {/* FOOTER with animated wave */}
-      <footer id="contact" className="relative">
+      <footer id="footer" className="relative">
         {/* Animated wave divider */}
         <div className="bg-black/10">
           <WaveDividerAnimated />
@@ -340,7 +405,7 @@ export default function App() {
 
         /* Animated footer wave */
         @keyframes waveSlide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .animate-wave { animation: waveSlide 20s linear infinite; }
+        .animate-wave { animation: waveSlide 12s linear infinite; }
       `}</style>
     </div>
   );
