@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Chuck’n Suds</title>
+    <!-- Immediately redirect unknown paths to / so the SPA can render the right route -->
+    <meta http-equiv="refresh" content="0;url=/" />
+    <script>
+      // Preserve the original path so the app can navigate to it after boot
+      sessionStorage.redirect = location.pathname + location.search + location.hash;
+      window.location.replace("/");
+    </script>
+  </head>
+  <body></body>
+</html>
