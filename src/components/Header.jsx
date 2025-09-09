@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "../assets/c.png";
 
-export default function Header({ mode = "home" }) {
+export default function Header({ mode = "home", onBookNow }) {
   const [open, setOpen] = useState(false);
 
   const goHome = () => {
@@ -35,8 +35,33 @@ export default function Header({ mode = "home" }) {
     }
   };
 
+  // Unified Book Now handler: uses onBookNow if provided, else falls back to smooth-scroll
+  const handleBookNow = (e) => {
+    if (onBookNow) {
+      e?.preventDefault?.();
+      setOpen(false);
+      onBookNow(); // App will: setShowForm(true), set hash, smooth-scroll
+      return;
+    }
+    // Fallback (works with/without hash listener)
+    setOpen(false);
+    if (mode === "home") {
+      // normalize URL then scroll
+      history.replaceState(null, "", "#contact-form");
+      requestAnimationFrame(() => goSection("#contact-form"));
+    } else {
+      // go to home then scroll
+      window.location.hash = "#/";
+      setTimeout(() => {
+        history.replaceState(null, "", "#contact-form");
+        const el = document.querySelector("#contact-form");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+    }
+  };
+
   return (
-    <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/5 bg-white/10">
+    <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-white/5 bg-white/10">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         {/* Logo & brand */}
         <button onClick={goHome} className="flex items-center gap-3">
@@ -58,12 +83,14 @@ export default function Header({ mode = "home" }) {
 
         {/* Book button & Hamburger */}
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => goSection("#contact")}
-            className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-bold text-pink-600 shadow-lg hover:bg-white"
+          {/* Use anchor with href for graceful fallback, but intercept click */}
+          <a
+            href="#contact-form"
+            onClick={handleBookNow}
+            className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-bold text-pink-600 shadow-lg hover:bg-white transition active:scale-95"
           >
             Book Now
-          </button>
+          </a>
           <button
             className="md:hidden inline-flex items-center justify-center rounded-full border border-white/50 bg-white/10 p-2 backdrop-blur hover:bg-white/20"
             onClick={() => setOpen(!open)}
@@ -78,7 +105,7 @@ export default function Header({ mode = "home" }) {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-white/15 bg-white/10 backdrop-blur">
+        <div className="md:hidden border-top border-white/15 bg-white/10 backdrop-blur">
           <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3 text-sm">
             <button onClick={goHome} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Home</button>
             <button onClick={() => goSection("#packages")} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Packages</button>
@@ -87,6 +114,12 @@ export default function Header({ mode = "home" }) {
             <button onClick={goGallery} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Gallery</button>
             {/* NEW: Flyer link */}
             <button onClick={goFlyer} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Flyer</button>
+            <button
+              onClick={handleBookNow}
+              className="mt-2 rounded-full bg-pink-500 px-4 py-2 font-bold text-white shadow hover:bg-pink-400"
+            >
+              Book Now
+            </button>
           </div>
         </div>
       )}

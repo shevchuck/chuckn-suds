@@ -114,18 +114,18 @@ export default function App() {
 
         {/* Video (fades in when ready) */}
         <video
-          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ${videoLoaded ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ${
+            videoLoaded ? "opacity-100" : "opacity-0"
+          }`}
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
-          poster="/poster.png"                 // ✅ served from /public
           onCanPlayThrough={() => setVideoLoaded(true)}
         >
           <source src={webVid} type="video/mp4" />
         </video>
-
 
         {/* Readability overlays */}
         <div className="pointer-events-none absolute inset-0 bg-black/25" />
