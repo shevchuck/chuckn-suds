@@ -6,9 +6,10 @@ import logo from "./assets/c.png";
 import ContactForm from "./components/ContactForm.jsx";
 import webVid from "./assets/webVid.mp4";
 
-// 👉 Add your package images to src/assets and import them here:
+// 👉 Package images
 import dayImg from "./assets/day.jpg";
 import nightImg from "./assets/night.jpg";
+import littleImg from "./assets/little.jpg"; // NEW
 
 export default function Home() {
   const [showForm, setShowForm] = useState(false);
@@ -27,11 +28,9 @@ export default function Home() {
       const h = window.location.hash;
       if (h === "#contact" || h === "#contact-form") {
         setShowForm(true);
-        // ensure form is mounted, then smooth scroll
         requestAnimationFrame(() => {
           const el = document.querySelector("#contact-form");
           if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          // normalize URL to #contact-form for consistency
           if (h !== "#contact-form") history.replaceState(null, "", "#contact-form");
         });
       }
@@ -42,6 +41,21 @@ export default function Home() {
   }, []);
 
   const packages = [
+    // NEW 45-min option
+    {
+      name: "MINI BUBBLER BASH (45 min)",
+      price: "$299",
+      image: littleImg,
+      features: [
+        "45-minute foam party — perfect for younger birthdays",
+        "Pro foam cannon + friendly attendant",
+        "Kid-safe, hypoallergenic foam",
+        "Sound system & fun party playlist",
+        "We travel and take care of everything!",
+        "Add extra time anytime",
+      ],
+      cta: "Book Little Bubbler Bash",
+    },
     {
       name: "DAY BUBBLE BLAST (60 min)",
       price: "$320",
@@ -62,12 +76,11 @@ export default function Home() {
       image: nightImg,
       features: [
         "1 hour foam party - Additional time add-on available",
+        "Glow Foam + UV & DJ party lights to light up the night",
         "Pro foam cannon + attendant",
         "Kid-safe foam concentrate",
         "Sound system & music",
-        "Colorful DJ Party Lights that bring your night to life",
         "We travel and take care of everything",
-        "Glow foam & UV lighting upgrades available",
       ],
       cta: "Book Night Time Frenzy",
       highlight: true,
@@ -93,9 +106,7 @@ export default function Home() {
       <Header
         mode="home"
         onBookNow={() => {
-          // open the form
           setShowForm(true);
-          // normalize URL and smooth scroll to the form
           history.replaceState(null, "", "#contact-form");
           requestAnimationFrame(() => {
             const el = document.querySelector("#contact-form");
@@ -106,13 +117,11 @@ export default function Home() {
 
       {/* HERO with video background (responsive height) */}
       <section className="relative overflow-hidden h-[70vh] min-h-[480px] md:h-[80vh] md:min-h-[500px]">
-        {/* Brand gradient + bubbles act as fallback while video loads */}
         <div className="absolute inset-0 bg-gradient-to-br from-teal-500 via-pink-500 to-orange-400" />
         <div className="pointer-events-none absolute inset-0 opacity-30">
           <Bubbles />
         </div>
 
-        {/* Video (fades in when ready) */}
         <video
           className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ${
             videoLoaded ? "opacity-100" : "opacity-0"
@@ -127,13 +136,10 @@ export default function Home() {
           <source src={webVid} type="video/mp4" />
         </video>
 
-        {/* Readability overlays */}
         <div className="pointer-events-none absolute inset-0 bg-black/25" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-pink-500/20 to-teal-500/20" />
+        <div className="pointer-events-none absolute insettha-0 bg-gradient-to-t from-pink-500/20 to-teal-500/20" />
 
-        {/* Content */}
         <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 place-items-center gap-5 px-4 py-12 md:grid-cols-2 md:py-24">
-          {/* Left: text */}
           <div className="text-center md:text-left">
             <div className="inline-block rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider ring-1 ring-white/30 md:text-xs">
               Epic Foam Parties for All Ages!
@@ -161,7 +167,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right: responsive bouncing logo */}
           <div className="relative mt-4 flex items-center justify-center md:mt-6">
             <img
               src={logo}
@@ -171,7 +176,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Respect reduced motion */}
         <style>{`
           @media (prefers-reduced-motion: reduce) {
             video { display: none; }
@@ -184,8 +188,8 @@ export default function Home() {
         <h2 className="text-center text-3xl font-extrabold md:text-4xl">Packages</h2>
         <p className="mt-2 text-center text-white/90">Transparent pricing. All the foam you need.</p>
 
-        {/* Enhanced cards */}
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
+        {/* Now 3 columns on desktop */}
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
           {packages.map((pkg) => (
             <div
               key={pkg.name}
@@ -193,7 +197,6 @@ export default function Home() {
                           shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-pink-500/30
                           ${pkg.highlight ? "bg-white/15" : ""}`}
             >
-              {/* Image + burst badge */}
               <div className="relative">
                 {pkg.image && (
                   <img
@@ -215,7 +218,6 @@ export default function Home() {
                 <BubbleAccent />
               </div>
 
-              {/* Card content */}
               <div className="p-6">
                 <h3 className="text-xl font-extrabold tracking-wide">{pkg.name}</h3>
                 <div className="mt-1 text-3xl font-black">{pkg.price}</div>
@@ -242,7 +244,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FAQ (frosted glass answers) */}
+      {/* FAQ */}
       <section id="faq" className="mx-auto max-w-4xl px-4 py-16">
         <h2 className="text-center text-3xl font-extrabold md:text-4xl">
           Frequently Asked Questions
@@ -400,7 +402,6 @@ export default function Home() {
         @keyframes pingSlow { 75%, 100% { transform: scale(1.6); opacity: 0; } }
         .animate-ping-slow { animation: pingSlow 1.8s cubic-bezier(0, 0, 0.2, 1) infinite; }
 
-        /* Animated footer wave */
         @keyframes waveSlide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .animate-wave { animation: waveSlide 12s linear infinite; }
       `}</style>
@@ -412,20 +413,17 @@ export default function Home() {
 function WaveDividerAnimated() {
   return (
     <div className="relative w-full h-20 md:h-24 overflow-hidden text-white/25">
-      {/* Sliding strip that's 200% wide so it can loop seamlessly */}
       <svg
         viewBox="0 0 1440 120"
         preserveAspectRatio="none"
         className="absolute top-0 left-0 h-full w-[200%] animate-wave"
       >
-        {/* First wave */}
         <g>
           <path
             fill="currentColor"
             d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,69.3C672,43,768,21,864,26.7C960,32,1056,64,1152,80C1248,96,1344,96,1392,96L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0,192,0,96,0,48,0L0,0Z"
           />
         </g>
-        {/* Seamless duplicate shifted to the right */}
         <g transform="translate(1440,0)">
           <path
             fill="currentColor"

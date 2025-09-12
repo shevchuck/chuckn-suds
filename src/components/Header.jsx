@@ -1,63 +1,55 @@
+// src/components/Header.jsx
 import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../assets/c.png";
 
 export default function Header({ mode = "home", onBookNow }) {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const goHome = () => {
-    window.location.hash = "#/";
+    navigate("/");
     setOpen(false);
   };
 
   const goGallery = () => {
-    window.location.hash = "#/gallery";
+    navigate("/gallery");
     setOpen(false);
   };
 
-  // NEW: Flyer page nav helper
   const goFlyer = () => {
-    window.location.hash = "#/flyer";
+    navigate("/flyer");
     setOpen(false);
   };
 
+  // Smooth-scroll to section if on home; otherwise go home then scroll.
   const goSection = (selector) => {
-    if (mode === "home") {
-      setOpen(false);
-      const el = document.querySelector(selector);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      window.location.hash = "#/";
-      setOpen(false);
-      setTimeout(() => {
+    const scrollTo = () => {
+      requestAnimationFrame(() => {
         const el = document.querySelector(selector);
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 60);
+      });
+    };
+
+    setOpen(false);
+    if (location.pathname === "/") {
+      scrollTo();
+    } else {
+      navigate("/");
+      setTimeout(scrollTo, 120); // allow home to mount, then scroll
     }
   };
 
-  // Unified Book Now handler: uses onBookNow if provided, else falls back to smooth-scroll
+  // Book Now: use parent handler if provided; else smooth-scroll to contact form
   const handleBookNow = (e) => {
+    e?.preventDefault?.();
+    setOpen(false);
     if (onBookNow) {
-      e?.preventDefault?.();
-      setOpen(false);
-      onBookNow(); // App will: setShowForm(true), set hash, smooth-scroll
+      onBookNow();
       return;
     }
-    // Fallback (works with/without hash listener)
-    setOpen(false);
-    if (mode === "home") {
-      // normalize URL then scroll
-      history.replaceState(null, "", "#contact-form");
-      requestAnimationFrame(() => goSection("#contact-form"));
-    } else {
-      // go to home then scroll
-      window.location.hash = "#/";
-      setTimeout(() => {
-        history.replaceState(null, "", "#contact-form");
-        const el = document.querySelector("#contact-form");
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 80);
-    }
+    goSection("#contact-form");
   };
 
   return (
@@ -77,15 +69,14 @@ export default function Header({ mode = "home", onBookNow }) {
           <button onClick={() => goSection("#faq")} className="hover:opacity-90">FAQ</button>
           <button onClick={() => goSection("#contact-form")} className="hover:opacity-90">Contact</button>
           <button onClick={goGallery} className="hover:opacity-90">Gallery</button>
-          {/* NEW: Flyer link */}
           <button onClick={goFlyer} className="hover:opacity-90">Flyer</button>
         </nav>
 
         {/* Book button & Hamburger */}
         <div className="flex items-center gap-2">
-          {/* Use anchor with href for graceful fallback, but intercept click */}
+          {/* Anchor provides graceful fallback if JS is disabled */}
           <a
-            href="#contact-form"
+            href="/#contact-form"
             onClick={handleBookNow}
             className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-bold text-pink-600 shadow-lg hover:bg-white transition active:scale-95"
           >
@@ -105,14 +96,13 @@ export default function Header({ mode = "home", onBookNow }) {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-top border-white/15 bg-white/10 backdrop-blur">
+        <div className="md:hidden border-t border-white/15 bg-white/10 backdrop-blur">
           <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3 text-sm">
             <button onClick={goHome} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Home</button>
             <button onClick={() => goSection("#packages")} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Packages</button>
             <button onClick={() => goSection("#faq")} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">FAQ</button>
             <button onClick={() => goSection("#contact-form")} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Contact</button>
             <button onClick={goGallery} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Gallery</button>
-            {/* NEW: Flyer link */}
             <button onClick={goFlyer} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Flyer</button>
             <button
               onClick={handleBookNow}

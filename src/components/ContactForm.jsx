@@ -92,7 +92,7 @@ export default function ContactForm({ onSubmitSuccess }) {
           rows="4"
           required
           className="w-full rounded-lg p-3 bg-white/90 text-black placeholder-gray-500"
-          placeholder="Tell us about your event!"
+          placeholder="Tell us about your event! Please include estimated head count."
         />
       </div>
 
