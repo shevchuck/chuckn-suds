@@ -10,6 +10,7 @@ import webVid from "./assets/webVid.mp4";
 import dayImg from "./assets/day.jpg";
 import nightImg from "./assets/night.jpg";
 import littleImg from "./assets/little.jpg"; // NEW
+import VideoEmbed from "./components/VideoEmbed.jsx"; // NEW
 
 export default function Home() {
   const [showForm, setShowForm] = useState(false);
@@ -41,9 +42,8 @@ export default function Home() {
   }, []);
 
   const packages = [
-    // NEW 45-min option
     {
-      name: "MINI BUBBLER BASH (45 min)",
+      name: "MINI BUBBLE BASH (45 min)",
       price: "$299",
       image: littleImg,
       features: [
@@ -52,9 +52,10 @@ export default function Home() {
         "Kid-safe, hypoallergenic foam",
         "Sound system & fun party playlist",
         "We travel and take care of everything!",
-        "Add extra time anytime",
+        "Quick setup & tidy wrap-up",
+        "Add extra time anytime!",
       ],
-      cta: "Book Little Bubbler Bash",
+      cta: "Book Mini Bubble Bash",
     },
     {
       name: "DAY BUBBLE BLAST (60 min)",
@@ -63,8 +64,8 @@ export default function Home() {
       features: [
         "1 hour foam party - Additional time add-on available",
         "Pro foam cannon + attendant",
-        "Kid-safe foam concentrate",
-        "Sound system & music",
+        "Kid-safe, hypoallergenic foam",
+        "Sound system & fun party playlist",
         "We travel and take care of everything!",
         "Color upgrades availble for gender reveal & themed parties",
       ],
@@ -78,8 +79,8 @@ export default function Home() {
         "1 hour foam party - Additional time add-on available",
         "Glow Foam + UV & DJ party lights to light up the night",
         "Pro foam cannon + attendant",
-        "Kid-safe foam concentrate",
-        "Sound system & music",
+        "Kid-safe, hypoallergenic foam",
+        "Sound system & fun party playlist",
         "We travel and take care of everything",
       ],
       cta: "Book Night Time Frenzy",
@@ -137,7 +138,7 @@ export default function Home() {
         </video>
 
         <div className="pointer-events-none absolute inset-0 bg-black/25" />
-        <div className="pointer-events-none absolute insettha-0 bg-gradient-to-t from-pink-500/20 to-teal-500/20" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-pink-500/20 to-teal-500/20" />
 
         <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 place-items-center gap-5 px-4 py-12 md:grid-cols-2 md:py-24">
           <div className="text-center md:text-left">
@@ -188,7 +189,6 @@ export default function Home() {
         <h2 className="text-center text-3xl font-extrabold md:text-4xl">Packages</h2>
         <p className="mt-2 text-center text-white/90">Transparent pricing. All the foam you need.</p>
 
-        {/* Now 3 columns on desktop */}
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {packages.map((pkg) => (
             <div
@@ -241,6 +241,20 @@ export default function Home() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* PROMO VIDEO (Vimeo) */}
+      <section className="mx-auto max-w-4xl px-4 pt-4 pb-16">
+        <h2 className="text-center text-3xl font-extrabold md:text-4xl">
+          See the Foam in Action
+        </h2>
+        <p className="mt-2 text-center text-white/90">
+          60 seconds of pure party vibes — turn your event into the BEST DAY EVER.
+        </p>
+
+        <div className="mt-6">
+          <VideoEmbed vimeoId="1120820153" autoplay={false} />
         </div>
       </section>
 
@@ -421,7 +435,7 @@ function WaveDividerAnimated() {
         <g>
           <path
             fill="currentColor"
-            d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,69.3C672,43,768,21,864,26.7C960,32,1056,64,1152,80C1248,96,1344,96,1392,96L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0,192,0,96,0,48,0L0,0Z"
+            d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,69.3C672,43,768,21,864,26.7C960,32,1056,64,1152,80C1248,96,1344,96,1392,96L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0,480,0,384,0,288,0,192,0,96,0,48,0L0,0Z"
           />
         </g>
         <g transform="translate(1440,0)">
