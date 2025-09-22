@@ -5,6 +5,7 @@ import Header from "./components/Header.jsx";
 import logo from "./assets/c.png";
 import ContactForm from "./components/ContactForm.jsx";
 import webVid from "./assets/webVid.mp4";
+import NewsletterMini from "./components/NewsletterMini.jsx";
 
 // 👉 Package images
 import dayImg from "./assets/day.jpg";
@@ -245,7 +246,7 @@ export default function Home() {
       </section>
 
       {/* PROMO VIDEO (Vimeo) */}
-      <section className="mx-auto max-w-4xl px-4 pt-4 pb-16">
+      <section id="video" className="mx-auto max-w-4xl px-4 pt-4 pb-16">
         <h2 className="text-center text-3xl font-extrabold md:text-4xl">
           See the Foam in Action
         </h2>
@@ -257,6 +258,10 @@ export default function Home() {
           <VideoEmbed vimeoId="1120820153" autoplay={false} />
         </div>
       </section>
+
+        
+
+      <NewsletterMini action="https://formspree.io/f/xpwlneal" />
 
       {/* FAQ */}
       <section id="faq" className="mx-auto max-w-4xl px-4 py-16">

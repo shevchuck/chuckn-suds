@@ -5,3 +5,15 @@
 /* Optional: body gradient fallback if images fail */
 html, body, #root { height: 100%; }
 body { @apply min-h-screen bg-gradient-to-br from-teal-500 via-pink-500 to-orange-400; }
+@keyframes bubbleGlow {
+  0%, 100% {
+    background: radial-gradient(circle, rgba(45,212,191,0.8), transparent 70%);
+  }
+  50% {
+    background: radial-gradient(circle, rgba(236,72,153,0.8), transparent 70%);
+  }
+}
+
+.animate-bubbleGlow {
+  animation: bubbleGlow 3s ease-in-out infinite;
+}

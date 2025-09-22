@@ -66,6 +66,8 @@ export default function Header({ mode = "home", onBookNow }) {
         {/* Desktop nav */}
         <nav className="hidden gap-6 text-sm md:flex">
           <button onClick={() => goSection("#packages")} className="hover:opacity-90">Packages</button>
+          {/* NEW: link to the video section */}
+          <button onClick={() => goSection("#video")} className="hover:opacity-90">Video</button>
           <button onClick={() => goSection("#faq")} className="hover:opacity-90">FAQ</button>
           <button onClick={() => goSection("#contact-form")} className="hover:opacity-90">Contact</button>
           <button onClick={goGallery} className="hover:opacity-90">Gallery</button>
@@ -74,7 +76,6 @@ export default function Header({ mode = "home", onBookNow }) {
 
         {/* Book button & Hamburger */}
         <div className="flex items-center gap-2">
-          {/* Anchor provides graceful fallback if JS is disabled */}
           <a
             href="/#contact-form"
             onClick={handleBookNow}
@@ -100,6 +101,8 @@ export default function Header({ mode = "home", onBookNow }) {
           <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3 text-sm">
             <button onClick={goHome} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Home</button>
             <button onClick={() => goSection("#packages")} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Packages</button>
+            {/* NEW: mobile link */}
+            <button onClick={() => goSection("#video")} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Video</button>
             <button onClick={() => goSection("#faq")} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">FAQ</button>
             <button onClick={() => goSection("#contact-form")} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Contact</button>
             <button onClick={goGallery} className="rounded-lg px-3 py-2 text-left hover:bg-white/15">Gallery</button>
