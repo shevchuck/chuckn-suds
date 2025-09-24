@@ -4,7 +4,7 @@ import { Facebook, Instagram, PhoneCall, MessageSquare } from "lucide-react";
 import Header from "./components/Header.jsx";
 import logo from "./assets/c.png";
 import ContactForm from "./components/ContactForm.jsx";
-import webVid from "./assets/webVid.mp4";
+import webVid from "./assets/webVidNew.mp4";
 import NewsletterMini from "./components/NewsletterMini.jsx";
 
 // 👉 Package images
