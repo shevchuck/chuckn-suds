@@ -28,7 +28,7 @@ export default function NewsletterMini({
   };
 
   return (
-    <section className="mx-auto max-w-4xl px-4 pb-10">
+    <section className="mx-auto max-w-4xl px-4 pb-6">
       <form
         onSubmit={onSubmit}
         className="flex flex-col items-center gap-3 rounded-2xl bg-white/10 p-4 backdrop-blur ring-1 ring-white/20 md:flex-row md:justify-between md:gap-6"
