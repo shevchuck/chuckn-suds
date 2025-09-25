@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Facebook, Instagram, PhoneCall, MessageSquare } from "lucide-react";
 import Header from "./components/Header.jsx";
-import logo from "./assets/noBackground.png";
+import logo from "./assets/c.png";
 import ContactForm from "./components/ContactForm.jsx";
 import webVid from "./assets/webVidFinal.mp4";
 import NewsletterMini from "./components/NewsletterMini.jsx";
