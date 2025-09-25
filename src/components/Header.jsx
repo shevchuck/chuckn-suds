@@ -1,7 +1,7 @@
 // src/components/Header.jsx
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from "../assets/c.png";
+import logo from "../assets/banner.png";
 
 export default function Header({ mode = "home", onBookNow }) {
   const [open, setOpen] = useState(false);
