@@ -173,7 +173,7 @@ export default function Home() {
             <img
               src={logo}
               alt="Chuck’n Suds logo"
-              className="h-24 md:h-48 lg:h-64 w-auto animate-bob select-none pointer-events-none drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
+              className="h-36 md:h-48 lg:h-64 w-auto animate-bob select-none pointer-events-none drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
             />
           </div>
         </div>
